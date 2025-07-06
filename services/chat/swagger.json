@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Chat Service API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/chats": {
+      "get": {
+        "summary": "List chats",
+        "responses": {
+          "200": { "description": "List of chats" }
+        }
+      },
+      "post": {
+        "summary": "Create chat",
+        "responses": {
+          "201": { "description": "Chat created" }
+        }
+      }
+    },
+    "/api/chats/{chatId}/participants": {
+      "post": {
+        "summary": "Add participant",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "201": { "description": "Participant added" }
+        }
+      }
+    },
+    "/api/chats/{chatId}/participants/{userId}": {
+      "delete": {
+        "summary": "Remove participant",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "userId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Removed" }
+        }
+      }
+    },
+    "/api/chats/{chatId}/messages": {
+      "get": {
+        "summary": "List messages",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
+          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Messages list" }
+        }
+      },
+      "post": {
+        "summary": "Send message",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "senderId": { "type": "string" },
+                  "content": { "type": "string" },
+                  "file": { "type": "string", "format": "binary" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Message created" }
+        }
+      }
+    },
+    "/api/chats/{chatId}/messages/{messageId}": {
+      "put": {
+        "summary": "Edit message",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "messageId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Message updated" }
+        }
+      },
+      "delete": {
+        "summary": "Delete message",
+        "parameters": [
+          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "messageId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "204": { "description": "Message deleted" }
+        }
+      }
+    }
+  }
+}
