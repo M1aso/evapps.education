@@ -1,6 +1,11 @@
 import os
+import sys
 import uuid
+from pathlib import Path
 from fastapi.testclient import TestClient
+
+# Ensure package imports work when running via pytest
+sys.path.append(str(Path(__file__).resolve().parents[3]))
 
 DB_PATH = "analytics_test.db"
 if os.path.exists(DB_PATH):
