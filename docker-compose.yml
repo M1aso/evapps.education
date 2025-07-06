@@ -1,0 +1,101 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres-init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+  auth:
+    build: ./services/auth
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "8001:8000"
+
+  profile:
+    build: ./services/profile
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "8002:8000"
+
+  content:
+    build: ./services/content
+    env_file: .env
+    depends_on:
+      - postgres
+    ports:
+      - "8003:8000"
+
+  chat:
+    build: ./services/chat
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8004:3000"
+
+  notification:
+    build: ./services/notification
+    env_file: .env
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    ports:
+      - "8005:8000"
+
+  analytics:
+    build: ./services/analytics
+    env_file: .env
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "8006:8000"
+
+  notification-worker:
+    build: ./services/notification
+    env_file: .env
+    depends_on:
+      - notification
+      - rabbitmq
+      - redis
+    command: celery -A tasks.celery_app worker --loglevel=info
+
+  analytics-worker:
+    build: ./services/analytics
+    env_file: .env
+    depends_on:
+      - analytics
+      - rabbitmq
+    command: celery -A app.tasks worker -B --loglevel=info
+
+volumes:
+  postgres-data:
+  redis-data:
+  rabbitmq-data:
