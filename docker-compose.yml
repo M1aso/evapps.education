@@ -85,7 +85,7 @@ services:
       - notification
       - rabbitmq
       - redis
-    command: celery -A tasks.celery_app worker --loglevel=info
+    command: celery -A app.tasks.celery_app worker --loglevel=info
 
   analytics-worker:
     build: ./services/analytics
