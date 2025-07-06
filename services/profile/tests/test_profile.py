@@ -1,5 +1,11 @@
+import sys
 import uuid
+from pathlib import Path
 from fastapi.testclient import TestClient
+
+# Ensure package imports work when running via pytest
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+
 from services.profile.app.main import app, Base, engine, SessionLocal
 from services.profile.app import models
 
