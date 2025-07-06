@@ -9,5 +9,5 @@ This code base is only a skeleton to help you start building the services descri
 
 ## Implemented Services
 
-- `services/analytics` – initial implementation of the Analytics and Reporting
-  module. It exposes FastAPI endpoints and Celery tasks for report generation.
+- `services/analytics` – initial implementation of the Analytics and Reporting module. It exposes FastAPI endpoints and Celery tasks for report generation.
+- `services/notification` – example Notification Service implementation found under `services/notification`.

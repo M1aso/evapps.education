@@ -11,7 +11,7 @@ SETUP_GUIDE.md      - (this file) step-by-step setup instructions
 .env.example        - example environment variable file
 ```
 
-Services should be implemented under a top level `services/` directory (not yet present). Each service may use its own language and framework as specified in the requirements.
+Services should be implemented under a top level `services/` directory. Each service may use its own language and framework as specified in the requirements. A sample implementation can be found at `services/notification`.
 
 ## 2. Prerequisites
 
