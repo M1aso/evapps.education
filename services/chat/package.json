@@ -1,0 +1,18 @@
+{
+  "name": "chat-service",
+  "version": "0.1.0",
+  "description": "Simple chat service skeleton",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.13.0",
+    "sequelize": "^6.32.1",
+    "sqlite3": "^5.1.6",
+    "multer": "^1.4.5",
+    "uuid": "^9.0.0"
+  }
+}
