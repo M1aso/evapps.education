@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+SQLAlchemy>=1.4
+asyncpg
+pydantic
+celery
+pandas
+openpyxl
+jinja2
+python-multipart
+reportlab
+psycopg2-binary
+python-dotenv
