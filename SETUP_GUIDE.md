@@ -36,6 +36,18 @@ Services should be implemented under a top level `services/` directory. Each ser
 4. **Run services locally**
    You can use Docker Compose or Kubernetes manifests. Ensure each service reads configuration from environment variables.
 
+5. **Run tests**
+   Example tests are provided for each service. From the repository root run:
+   ```bash
+   pytest services/auth/tests
+   pytest services/profile/tests
+   pytest services/analytics/tests
+   pytest services/notification/tests
+   ```
+Go services have simple checks that can be executed with `go test`.
+For Node-based services such as `services/chat` run `npm install` once to
+download dependencies, then `npm test` inside the directory.
+
 ## 4. Environment Variables and Credentials
 
 All sensitive credentials (database passwords, API tokens, secret keys) should be provided via environment variables. During local development they can be placed in the `.env` file which is loaded by Docker Compose or your application framework. For production, store them in Kubernetes Secrets or your CI/CD secret manager.
@@ -80,4 +92,29 @@ Environment variables can be adjusted for each deployment environment (dev/stagi
 ## 5. Next Steps
 
 The repository currently only contains documentation. Start by creating the service folders and gradually implement the APIs as defined in `REQUIREMENTS.md`. Each service should have its own tests and CI/CD pipeline.
+
+## 6. Running with Docker Compose
+
+For local development you can spin up the services using Docker Compose. The
+repository does not include a Compose file, but a simple example would look like
+
+```yaml
+version: '3.9'
+services:
+  auth:
+    build: ./services/auth
+    env_file: .env
+  profile:
+    build: ./services/profile
+    env_file: .env
+```
+
+After creating such a file, run:
+
+```bash
+docker compose up --build
+```
+
+Each service exposes its API on the port defined by the `PORT` environment
+variable.
 

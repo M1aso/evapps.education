@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Boolean, ForeignKey, JSON, TIMESTAMP
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -22,8 +23,8 @@ class ReportRequest(Base):
     params = Column(JSON)
     status = Column(String(10))
     error = Column(Text)
-    created_at = Column(TIMESTAMP, server_default="now()")
-    updated_at = Column(TIMESTAMP, server_default="now()")
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP, default=datetime.utcnow)
 
     report_type = relationship("ReportType", back_populates="requests")
     result = relationship("ReportResult", uselist=False, back_populates="request")
@@ -36,7 +37,7 @@ class ReportResult(Base):
     format = Column(String(10))
     file_url = Column(Text)
     size_bytes = Column(Integer)
-    created_at = Column(TIMESTAMP, server_default="now()")
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
 
     request = relationship("ReportRequest", back_populates="result")
 
@@ -50,7 +51,7 @@ class ReportSchedule(Base):
     next_run = Column(TIMESTAMP)
     active = Column(Boolean, default=True)
     params = Column(JSON)
-    created_at = Column(TIMESTAMP, server_default="now()")
-    updated_at = Column(TIMESTAMP, server_default="now()")
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP, default=datetime.utcnow)
 
     report_type = relationship("ReportType")

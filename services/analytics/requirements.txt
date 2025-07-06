@@ -3,6 +3,7 @@ uvicorn
 SQLAlchemy>=1.4
 asyncpg
 pydantic
+pydantic-settings
 celery
 pandas
 openpyxl

@@ -1,23 +1,22 @@
 from datetime import date, datetime
 from typing import Optional, List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from uuid import UUID
 
 
 class SocialBindingOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     provider: str
     provider_id: str
     linked_at: datetime
 
-    class Config:
-        orm_mode = True
 
 
 class ProfileBase(BaseModel):
     first_name: str
     nickname: Optional[str] = None
     birth_date: Optional[date] = None
-    gender: Optional[str] = Field(None, regex="^(male|female|other)$")
+    gender: Optional[str] = Field(None, pattern="^(male|female|other)$")
     country: Optional[str] = None
     city: Optional[str] = None
     company: Optional[str] = None
@@ -35,11 +34,9 @@ class ProfileUpdate(ProfileBase):
 
 
 class ProfileOut(ProfileBase):
+    model_config = ConfigDict(from_attributes=True)
     user_id: UUID
     social_accounts: List[SocialBindingOut] = []
-
-    class Config:
-        orm_mode = True
 
 
 class ExperienceLevelBase(BaseModel):
@@ -48,18 +45,14 @@ class ExperienceLevelBase(BaseModel):
 
 
 class ExperienceLevelOut(ExperienceLevelBase):
+    model_config = ConfigDict(from_attributes=True)
     id: int
-
-    class Config:
-        orm_mode = True
 
 
 class ProfileHistoryOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     field: str
     old_value: Optional[str]
     new_value: Optional[str]
     changed_at: datetime
-
-    class Config:
-        orm_mode = True
 
