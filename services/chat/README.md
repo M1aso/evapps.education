@@ -11,6 +11,12 @@ service is intentionally lightweight and meant for local experimentation.
    ```bash
    npm install
    ```
+If you start the service without running this command you will see the
+message `sequelize not installed, using stub models` and the server will fail
+to initialize.
+When using Docker Compose make sure to run
+`docker compose up --build` so the image installs all dependencies during the
+build step.
 2. Start the server:
    ```bash
    npm start
