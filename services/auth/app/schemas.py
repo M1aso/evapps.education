@@ -2,10 +2,10 @@ from datetime import datetime
 from pydantic import BaseModel, EmailStr, constr
 
 class SendCodeRequest(BaseModel):
-    phone: constr(regex=r'^\+7\d{10}$')
+    phone: constr(pattern=r'^\+7\d{10}$')
 
 class VerifyPhoneRequest(BaseModel):
-    phone: constr(regex=r'^\+7\d{10}$')
+    phone: constr(pattern=r'^\+7\d{10}$')
     code: constr(min_length=6, max_length=6)
     email: EmailStr | None = None
     password: str | None = None
