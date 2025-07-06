@@ -5,6 +5,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const WebSocket = require('ws');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 const PORT = process.env.PORT || 3000;
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
@@ -14,6 +16,7 @@ async function init() {
 
   const app = express();
   app.use(express.json());
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.post('/api/chats', async (req, res) => {
     const chat = await Chat.create({ title: req.body.title || 'New Chat' });
