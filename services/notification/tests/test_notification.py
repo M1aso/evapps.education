@@ -8,9 +8,9 @@ if os.path.exists(DB_PATH):
     os.remove(DB_PATH)
 os.environ.setdefault("NOTIFICATION_DATABASE_URL", f"sqlite+aiosqlite:///{DB_PATH}")
 
-from services.notification.main import app
-from services.notification.database import engine, Base, AsyncSessionLocal
-from services.notification import models
+from services.notification.app.main import app
+from services.notification.app.database import engine, Base, AsyncSessionLocal
+from services.notification.app import models
 
 async def _init_db():
     async with engine.begin() as conn:
