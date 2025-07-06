@@ -1,8 +1,15 @@
 import sys
 from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parents[1] / 'app'))
 
-from utils import hash_password, verify_password, create_access_token
+# Add repository root to the path so ``services`` can be imported as a package
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.append(str(ROOT))
+
+from services.auth.app.utils import (
+    hash_password,
+    verify_password,
+    create_access_token,
+)
 
 
 def test_password_hashing():
