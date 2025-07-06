@@ -6,3 +6,8 @@ This repository contains documentation and helper files for a corporate e‑lear
 - Follow [SETUP_GUIDE.md](SETUP_GUIDE.md) for local development steps and environment variable configuration.
 
 This code base is only a skeleton to help you start building the services described in the requirements document.
+
+## Implemented Services
+
+- `services/analytics` – initial implementation of the Analytics and Reporting
+  module. It exposes FastAPI endpoints and Celery tasks for report generation.
