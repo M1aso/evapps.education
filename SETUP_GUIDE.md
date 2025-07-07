@@ -118,3 +118,7 @@ docker compose up --build
 Each service exposes its API on the port defined by the `PORT` environment
 variable.
 
+
+## 7. Gateway and Logging
+
+The platform routes requests through an API gateway. See the [API Gateway section](README.md#api-gateway) in the README along with the sample configuration in [`docker/nginx/app.conf`](docker/nginx/app.conf). For log viewing instructions refer to [Centralized Logging with EFK](README.md#centralized-logging-with-efk).
