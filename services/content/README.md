@@ -14,3 +14,5 @@ go run .
 ```
 
 The service listens on port `8000` and exposes JSON endpoints under `/api`.
+Swagger UI for exploring the API is served at `http://localhost:8000/docs` or
+via the gateway at `http://localhost:8080/content/docs`.

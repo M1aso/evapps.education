@@ -33,6 +33,9 @@ cp ../../.env.example .env  # adjust variables
 uvicorn app.main:app --reload
 ```
 
+Swagger UI is available at `http://localhost:8000/docs` (or
+`http://localhost:8080/analytics/docs` behind the gateway).
+
 ### Running Celery worker
 ```bash
 celery -A app.tasks worker -B --loglevel=info

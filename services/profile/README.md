@@ -19,6 +19,8 @@ Launch locally with:
 ```bash
 uvicorn app.main:app --reload
 ```
+Swagger UI is available at `http://localhost:8000/docs` or via the gateway at
+`http://localhost:8080/profile/docs`.
 
 ## Running Tests
 

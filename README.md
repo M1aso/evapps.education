@@ -51,6 +51,15 @@ Nginx using the following paths:
 Each service exposes its own Swagger UI under `/docs` for interactive API
 testing. Replace `/docs` with other paths as appropriate for your implementation.
 
+### Troubleshooting 502 Errors
+
+If the gateway returns a **502 Bad Gateway** when opening one of the service
+documentation pages (e.g. `/notification/docs`), the underlying container likely
+failed to start or is still initializing. Run `docker compose ps` and
+`docker compose logs <service>` to inspect errors. Database connections are a
+common cause—ensure Postgres is reachable and environment variables are set
+correctly, then restart the affected container.
+
 ## Centralized Logging with EFK
 
 Lines 31 and 532 of `REQUIREMENTS.md` specify the use of an EFK (Elasticsearch,
