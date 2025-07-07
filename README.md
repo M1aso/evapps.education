@@ -34,6 +34,23 @@ forwards requests to the microservices. A minimal Nginx example is provided in
 `docker-compose.yml` starts a `gateway` service using this file so the platform
 is reachable at `http://localhost:8080`.
 
+### Accessing Services via the Gateway
+
+After running `docker compose up --build` you can browse each module through
+Nginx using the following paths:
+
+| Service         | Endpoint                               |
+|-----------------|-----------------------------------------|
+| Auth            | `http://localhost:8080/auth/docs`       |
+| Profile         | `http://localhost:8080/profile/docs`    |
+| Content         | `http://localhost:8080/content/docs`    |
+| Chat            | `http://localhost:8080/chat/docs`       |
+| Notification    | `http://localhost:8080/notification/docs` |
+| Analytics       | `http://localhost:8080/analytics/docs`  |
+
+Each service exposes its own Swagger UI under `/docs` for interactive API
+testing. Replace `/docs` with other paths as appropriate for your implementation.
+
 ## Centralized Logging with EFK
 
 Lines 31 and 532 of `REQUIREMENTS.md` specify the use of an EFK (Elasticsearch,
