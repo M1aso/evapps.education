@@ -1,7 +1,13 @@
 import os
+import sys
 import uuid
 import asyncio
+from pathlib import Path
 from fastapi.testclient import TestClient
+
+# Add repository root to the path so ``services`` can be imported as a package
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.append(str(ROOT))
 
 DB_PATH = "notification_test.db"
 if os.path.exists(DB_PATH):
