@@ -8,7 +8,7 @@ from typing import List
 from .database import get_session, Base, engine
 from . import crud, schemas, models
 
-app = FastAPI(title="Notification Service")
+app = FastAPI(title="Notification Service", root_path=os.getenv("ROOT_PATH", ""))
 
 app.add_middleware(
     CORSMiddleware,

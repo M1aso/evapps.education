@@ -10,7 +10,7 @@ from . import models, schemas, crud
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Profile Service")
+app = FastAPI(title="Profile Service", root_path=os.getenv("ROOT_PATH", ""))
 
 
 def get_db():

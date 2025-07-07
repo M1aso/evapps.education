@@ -2,6 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 import uuid
+import os
 
 from .config import settings
 from .database import SessionLocal, init_db
@@ -19,7 +20,7 @@ from .schemas import (
 from .utils import hash_password, verify_password, create_access_token, create_refresh_token
 
 init_db()
-app = FastAPI(title="Auth Service")
+app = FastAPI(title="Auth Service", root_path=os.getenv("ROOT_PATH", ""))
 
 
 def get_db():
