@@ -4,6 +4,9 @@
     "title": "Content Service API",
     "version": "0.1.0"
   },
+  "servers": [
+    { "url": "/content" }
+  ],
   "paths": {
     "/api/courses": {
       "get": { "summary": "List courses", "responses": { "200": { "description": "List of courses" } } },

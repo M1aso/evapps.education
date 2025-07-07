@@ -4,6 +4,9 @@
     "title": "Chat Service API",
     "version": "0.1.0"
   },
+  "servers": [
+    { "url": "/chat" }
+  ],
   "paths": {
     "/api/chats": {
       "get": {
