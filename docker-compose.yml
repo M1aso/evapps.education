@@ -108,6 +108,19 @@ services:
       - rabbitmq
     command: celery -A app.tasks worker -B --loglevel=info
 
+  docs:
+    build: ./services/docs
+    env_file: .env
+    depends_on:
+      - auth
+      - profile
+      - content
+      - chat
+      - notification
+      - analytics
+    ports:
+      - "8007:8000"
+
   gateway:
     image: nginx:1.25
     volumes:
@@ -119,6 +132,7 @@ services:
       - chat
       - notification
       - analytics
+      - docs
     ports:
       - "8080:80"
 
