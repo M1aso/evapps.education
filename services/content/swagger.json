@@ -4,91 +4,247 @@
     "title": "Content Service API",
     "version": "0.1.0"
   },
-  "servers": [
-    { "url": "/content" }
+  "servers": [{"url": "/content"}],
+  "tags": [
+    {"name": "Courses"},
+    {"name": "Sections"},
+    {"name": "Materials"},
+    {"name": "Media"}
   ],
   "paths": {
     "/api/courses": {
-      "get": { "summary": "List courses", "responses": { "200": { "description": "List of courses" } } },
-      "post": { "summary": "Create course", "responses": { "201": { "description": "Course created" } } }
+      "get": {
+        "summary": "List courses",
+        "operationId": "listCourses",
+        "tags": ["Courses"],
+        "responses": {
+          "200": {
+            "description": "List of courses",
+            "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Course"}}}}
+          }
+        }
+      },
+      "post": {
+        "summary": "Create course",
+        "operationId": "createCourse",
+        "tags": ["Courses"],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CourseCreate"}}}
+        },
+        "responses": {
+          "201": {
+            "description": "Course created",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Course"}}}
+          }
+        }
+      }
     },
     "/api/courses/{courseId}": {
       "get": {
         "summary": "Get course",
-        "parameters": [ { "name": "courseId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Course" } }
+        "operationId": "getCourse",
+        "tags": ["Courses"],
+        "parameters": [{"name": "courseId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Course", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Course"}}}}}
       },
       "put": {
         "summary": "Update course",
-        "parameters": [ { "name": "courseId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Updated" } }
+        "operationId": "updateCourse",
+        "tags": ["Courses"],
+        "parameters": [{"name": "courseId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CourseUpdate"}}}},
+        "responses": {"200": {"description": "Updated", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Course"}}}}}
       },
       "delete": {
         "summary": "Delete course",
-        "parameters": [ { "name": "courseId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "204": { "description": "Deleted" } }
+        "operationId": "deleteCourse",
+        "tags": ["Courses"],
+        "parameters": [{"name": "courseId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"204": {"description": "Deleted"}}
       }
     },
     "/api/courses/{courseId}/sections": {
       "get": {
         "summary": "List sections",
-        "parameters": [ { "name": "courseId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Sections" } }
+        "operationId": "listSections",
+        "tags": ["Sections"],
+        "parameters": [{"name": "courseId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Sections", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Section"}}}}}}
       },
       "post": {
         "summary": "Create section",
-        "parameters": [ { "name": "courseId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "201": { "description": "Section created" } }
+        "operationId": "createSection",
+        "tags": ["Sections"],
+        "parameters": [{"name": "courseId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectionCreate"}}}},
+        "responses": {"201": {"description": "Section created", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Section"}}}}}
       }
     },
     "/api/sections/{sectionId}": {
       "put": {
         "summary": "Update section",
-        "parameters": [ { "name": "sectionId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Updated" } }
+        "operationId": "updateSection",
+        "tags": ["Sections"],
+        "parameters": [{"name": "sectionId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/SectionUpdate"}}}},
+        "responses": {"200": {"description": "Updated", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Section"}}}}}
       },
       "delete": {
         "summary": "Delete section",
-        "parameters": [ { "name": "sectionId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "204": { "description": "Deleted" } }
+        "operationId": "deleteSection",
+        "tags": ["Sections"],
+        "parameters": [{"name": "sectionId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"204": {"description": "Deleted"}}
       }
     },
     "/api/sections/{sectionId}/materials": {
       "get": {
         "summary": "List materials",
-        "parameters": [ { "name": "sectionId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Materials" } }
+        "operationId": "listMaterials",
+        "tags": ["Materials"],
+        "parameters": [{"name": "sectionId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Materials", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Material"}}}}}}
       },
       "post": {
         "summary": "Create material",
-        "parameters": [ { "name": "sectionId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "201": { "description": "Material created" } }
+        "operationId": "createMaterial",
+        "tags": ["Materials"],
+        "parameters": [{"name": "sectionId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MaterialCreate"}}}},
+        "responses": {"201": {"description": "Material created", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Material"}}}}}
       }
     },
     "/api/materials/{materialId}": {
       "put": {
         "summary": "Update material",
-        "parameters": [ { "name": "materialId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Updated" } }
+        "operationId": "updateMaterial",
+        "tags": ["Materials"],
+        "parameters": [{"name": "materialId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MaterialUpdate"}}}},
+        "responses": {"200": {"description": "Updated", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Material"}}}}}
       },
       "delete": {
         "summary": "Delete material",
-        "parameters": [ { "name": "materialId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "204": { "description": "Deleted" } }
+        "operationId": "deleteMaterial",
+        "tags": ["Materials"],
+        "parameters": [{"name": "materialId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"204": {"description": "Deleted"}}
       }
     },
     "/api/media/{mediaId}/status": {
       "get": {
         "summary": "Check media status",
-        "parameters": [ { "name": "mediaId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "200": { "description": "Status" } }
+        "operationId": "getMediaStatus",
+        "tags": ["Media"],
+        "parameters": [{"name": "mediaId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"200": {"description": "Status", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MediaStatus"}}}}}
       }
     },
     "/api/media/{mediaId}/stream": {
       "get": {
         "summary": "Stream media",
-        "parameters": [ { "name": "mediaId", "in": "path", "required": true, "schema": { "type": "string" } } ],
-        "responses": { "302": { "description": "Redirect" } }
+        "operationId": "streamMedia",
+        "tags": ["Media"],
+        "parameters": [{"name": "mediaId", "in": "path", "required": true, "schema": {"type": "string"}}],
+        "responses": {"302": {"description": "Redirect"}}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Course": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "language": {"type": "string"},
+          "status": {"type": "string"},
+          "visibility": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "CourseCreate": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "language": {"type": "string"},
+          "status": {"type": "string"},
+          "visibility": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        },
+        "required": ["title"]
+      },
+      "CourseUpdate": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "description": {"type": "string"},
+          "language": {"type": "string"},
+          "status": {"type": "string"},
+          "visibility": {"type": "string"},
+          "tags": {"type": "array", "items": {"type": "string"}}
+        }
+      },
+      "Section": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "course_id": {"type": "string"},
+          "title": {"type": "string"},
+          "sequence": {"type": "integer"}
+        }
+      },
+      "SectionCreate": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "sequence": {"type": "integer"}
+        },
+        "required": ["title"]
+      },
+      "SectionUpdate": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "sequence": {"type": "integer"}
+        }
+      },
+      "Material": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "section_id": {"type": "string"},
+          "type": {"type": "string"},
+          "title": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      },
+      "MaterialCreate": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "title": {"type": "string"},
+          "status": {"type": "string"}
+        },
+        "required": ["type", "title"]
+      },
+      "MaterialUpdate": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      },
+      "MediaStatus": {
+        "type": "object",
+        "properties": {
+          "media_file_id": {"type": "string"},
+          "status": {"type": "string"},
+          "url": {"type": "string"}
+        }
       }
     }
   }

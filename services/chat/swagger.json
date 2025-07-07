@@ -4,103 +4,205 @@
     "title": "Chat Service API",
     "version": "0.1.0"
   },
-  "servers": [
-    { "url": "/chat" }
+  "servers": [{"url": "/chat"}],
+  "tags": [
+    {"name": "Chats", "description": "Chat management"},
+    {"name": "Participants", "description": "Participants management"},
+    {"name": "Messages", "description": "Chat messages"}
   ],
   "paths": {
     "/api/chats": {
       "get": {
         "summary": "List chats",
+        "operationId": "listChats",
+        "tags": ["Chats"],
         "responses": {
-          "200": { "description": "List of chats" }
+          "200": {
+            "description": "List of chats",
+            "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Chat"}}}}
+          }
         }
       },
       "post": {
         "summary": "Create chat",
+        "operationId": "createChat",
+        "tags": ["Chats"],
+        "requestBody": {
+          "required": false,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChatCreate"}}}
+        },
         "responses": {
-          "201": { "description": "Chat created" }
+          "201": {
+            "description": "Chat created",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Chat"}}}
+          }
         }
       }
     },
     "/api/chats/{chatId}/participants": {
       "post": {
         "summary": "Add participant",
+        "operationId": "addParticipant",
+        "tags": ["Participants"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}}
         ],
+        "requestBody": {
+          "required": true,
+          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ParticipantCreate"}}}
+        },
         "responses": {
-          "201": { "description": "Participant added" }
+          "201": {
+            "description": "Participant added",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ChatParticipant"}}}
+          }
         }
       }
     },
     "/api/chats/{chatId}/participants/{userId}": {
       "delete": {
         "summary": "Remove participant",
+        "operationId": "removeParticipant",
+        "tags": ["Participants"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "userId", "in": "path", "required": true, "schema": { "type": "string" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "userId", "in": "path", "required": true, "schema": {"type": "string"}}
         ],
-        "responses": {
-          "204": { "description": "Removed" }
-        }
+        "responses": {"204": {"description": "Removed"}}
       }
     },
     "/api/chats/{chatId}/messages": {
       "get": {
         "summary": "List messages",
+        "operationId": "listMessages",
+        "tags": ["Messages"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "limit", "in": "query", "schema": { "type": "integer" } },
-          { "name": "offset", "in": "query", "schema": { "type": "integer" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "limit", "in": "query", "schema": {"type": "integer"}},
+          {"name": "offset", "in": "query", "schema": {"type": "integer"}}
         ],
         "responses": {
-          "200": { "description": "Messages list" }
+          "200": {
+            "description": "Messages list",
+            "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Message"}}}}
+          }
         }
       },
       "post": {
         "summary": "Send message",
+        "operationId": "createMessage",
+        "tags": ["Messages"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}}
         ],
         "requestBody": {
+          "required": true,
           "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "senderId": { "type": "string" },
-                  "content": { "type": "string" },
-                  "file": { "type": "string", "format": "binary" }
-                }
-              }
-            }
+            "multipart/form-data": {"schema": {"$ref": "#/components/schemas/MessageCreate"}}
           }
         },
         "responses": {
-          "201": { "description": "Message created" }
+          "201": {
+            "description": "Message created",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Message"}}}
+          }
         }
       }
     },
     "/api/chats/{chatId}/messages/{messageId}": {
       "put": {
         "summary": "Edit message",
+        "operationId": "editMessage",
+        "tags": ["Messages"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "messageId", "in": "path", "required": true, "schema": { "type": "string" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "messageId", "in": "path", "required": true, "schema": {"type": "string"}}
         ],
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/MessageUpdate"}}}},
         "responses": {
-          "200": { "description": "Message updated" }
+          "200": {
+            "description": "Message updated",
+            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Message"}}}
+          }
         }
       },
       "delete": {
         "summary": "Delete message",
+        "operationId": "deleteMessage",
+        "tags": ["Messages"],
         "parameters": [
-          { "name": "chatId", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "messageId", "in": "path", "required": true, "schema": { "type": "string" } }
+          {"name": "chatId", "in": "path", "required": true, "schema": {"type": "string"}},
+          {"name": "messageId", "in": "path", "required": true, "schema": {"type": "string"}}
         ],
-        "responses": {
-          "204": { "description": "Message deleted" }
+        "responses": {"204": {"description": "Message deleted"}}
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Chat": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "updatedAt": {"type": "string", "format": "date-time"}
         }
+      },
+      "ChatCreate": {
+        "type": "object",
+        "properties": {"title": {"type": "string"}}
+      },
+      "ChatParticipant": {
+        "type": "object",
+        "properties": {
+          "chatId": {"type": "string"},
+          "userId": {"type": "string"},
+          "joinedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "ParticipantCreate": {
+        "type": "object",
+        "properties": {"userId": {"type": "string"}},
+        "required": ["userId"]
+      },
+      "Attachment": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "messageId": {"type": "string"},
+          "url": {"type": "string"},
+          "mimeType": {"type": "string"},
+          "sizeBytes": {"type": "integer"}
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "chatId": {"type": "string"},
+          "senderId": {"type": "string"},
+          "content": {"type": "string"},
+          "editedAt": {"type": "string", "format": "date-time"},
+          "deletedAt": {"type": "string", "format": "date-time"},
+          "attachments": {"type": "array", "items": {"$ref": "#/components/schemas/Attachment"}},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "updatedAt": {"type": "string", "format": "date-time"}
+        }
+      },
+      "MessageCreate": {
+        "type": "object",
+        "properties": {
+          "senderId": {"type": "string"},
+          "content": {"type": "string"},
+          "file": {"type": "string", "format": "binary"}
+        },
+        "required": ["senderId"]
+      },
+      "MessageUpdate": {
+        "type": "object",
+        "properties": {"content": {"type": "string"}},
+        "required": ["content"]
       }
     }
   }
