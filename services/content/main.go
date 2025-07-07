@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 )
@@ -61,8 +62,21 @@ func genID() string {
 	return fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10], b[10:16])
 }
 
+var swaggerSpec []byte
+
 func main() {
 	mux := http.NewServeMux()
+
+	data, err := os.ReadFile("swagger.json")
+	if err == nil {
+		swaggerSpec = data
+	} else {
+		log.Printf("unable to read swagger.json: %v", err)
+	}
+
+	mux.HandleFunc("/docs", docsHandler)
+	mux.HandleFunc("/docs/swagger.json", specHandler)
+
 	mux.HandleFunc("/api/courses", handleCourses)
 	mux.HandleFunc("/api/courses/", handleCourseSubroutes)
 	mux.HandleFunc("/api/sections/", handleSectionSubroutes)
@@ -384,4 +398,33 @@ func handleMedia(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.NotFound(w, r)
+}
+
+func specHandler(w http.ResponseWriter, r *http.Request) {
+	if swaggerSpec == nil {
+		http.Error(w, "spec not found", http.StatusNotFound)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(swaggerSpec)
+}
+
+func docsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	fmt.Fprint(w, `<!DOCTYPE html>
+<html>
+<head>
+  <title>Content Service API</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui.css" />
+</head>
+<body>
+<div id="swagger-ui"></div>
+<script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui-bundle.js"></script>
+<script>
+window.onload = function() {
+  SwaggerUIBundle({url: '/docs/swagger.json', dom_id: '#swagger-ui'});
+};
+</script>
+</body>
+</html>`)
 }

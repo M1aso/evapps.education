@@ -23,4 +23,7 @@ Run the service:
 uvicorn app.main:app --reload
 ```
 
+Swagger UI is available at `http://localhost:8000/docs` when running locally, or
+`http://localhost:8080/auth/docs` through the gateway.
+
 Environment variables can be defined in `.env` or exported in the shell. See `.env.example` in the repository root for common variables.
