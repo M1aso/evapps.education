@@ -24,3 +24,18 @@ documentation in this repository to continue building out the platform.
   with example tests in `services/notification/tests`.
 - **Analytics service** – `services/analytics` (Python/FastAPI + Celery) with
   example tests in `services/analytics/tests`.
+
+## API Gateway
+
+The architecture routes all incoming traffic through an API gateway. As noted in
+`REQUIREMENTS.md` line 21, this gateway validates JWT tokens, terminates TLS and
+forwards requests to the microservices. A minimal Nginx example is provided in
+[`docker/nginx/app.conf`](docker/nginx/app.conf).
+
+## Centralized Logging with EFK
+
+Lines 31 and 532 of `REQUIREMENTS.md` specify the use of an EFK (Elasticsearch,
+Fluentd, Kibana) stack for aggregating service logs. Deploy Elasticsearch and
+Fluentd, expose Kibana (for example on port 5601) and configure Fluentd to
+forward container output. Once deployed, open Kibana to search and visualize
+logs from every service.
