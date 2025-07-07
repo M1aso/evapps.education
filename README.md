@@ -30,7 +30,9 @@ documentation in this repository to continue building out the platform.
 The architecture routes all incoming traffic through an API gateway. As noted in
 `REQUIREMENTS.md` line 21, this gateway validates JWT tokens, terminates TLS and
 forwards requests to the microservices. A minimal Nginx example is provided in
-[`docker/nginx/app.conf`](docker/nginx/app.conf).
+[`docker/nginx/app.conf`](docker/nginx/app.conf). The default
+`docker-compose.yml` starts a `gateway` service using this file so the platform
+is reachable at `http://localhost:8080`.
 
 ## Centralized Logging with EFK
 
