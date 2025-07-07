@@ -422,7 +422,7 @@ func docsHandler(w http.ResponseWriter, r *http.Request) {
 <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@4/swagger-ui-bundle.js"></script>
 <script>
 window.onload = function() {
-  SwaggerUIBundle({url: 'swagger.json', dom_id: '#swagger-ui'});
+  SwaggerUIBundle({url: 'docs/swagger.json', dom_id: '#swagger-ui'});
 };
 </script>
 </body>
