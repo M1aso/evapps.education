@@ -20,13 +20,13 @@ from .schemas import (
 from .utils import hash_password, verify_password, create_access_token, create_refresh_token
 
 init_db()
-ROOT_PATH = os.getenv("ROOT_PATH", "/auth")
+ROOT_PATH = os.getenv("ROOT_PATH", "")
 app = FastAPI(
     title="Auth Service",
     root_path=ROOT_PATH,
-    docs_url=f"{ROOT_PATH}/docs" if ROOT_PATH else "/docs",
-    redoc_url=f"{ROOT_PATH}/redoc" if ROOT_PATH else "/redoc",
-    openapi_url=f"{ROOT_PATH}/openapi.json" if ROOT_PATH else "/openapi.json",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 
