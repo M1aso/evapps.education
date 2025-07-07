@@ -95,8 +95,10 @@ The repository currently only contains documentation. Start by creating the serv
 
 ## 6. Running with Docker Compose
 
-For local development you can spin up the services using Docker Compose. The
-repository does not include a Compose file, but a simple example would look like
+For local development you can spin up the services using Docker Compose. A
+complete `docker-compose.yml` is provided and defines all microservices along
+with a `gateway` container that loads [`docker/nginx/app.conf`](docker/nginx/app.conf).
+If you want a minimal starting point for new services, it might look like
 
 ```yaml
 version: '3.9'
@@ -116,9 +118,11 @@ docker compose up --build
 ```
 
 Each service exposes its API on the port defined by the `PORT` environment
-variable.
+variable. When using the provided compose file the platform can be accessed via
+the gateway at `http://localhost:8080`.
 
 
 ## 7. Gateway and Logging
 
 The platform routes requests through an API gateway. See the [API Gateway section](README.md#api-gateway) in the README along with the sample configuration in [`docker/nginx/app.conf`](docker/nginx/app.conf). For log viewing instructions refer to [Centralized Logging with EFK](README.md#centralized-logging-with-efk).
+The `gateway` service is already defined in the provided compose file.
