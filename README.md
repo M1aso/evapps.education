@@ -47,11 +47,9 @@ Nginx using the following paths:
 | Chat            | `http://localhost:8080/chat/docs`       |
 | Notification    | `http://localhost:8080/notification/docs` |
 | Analytics       | `http://localhost:8080/analytics/docs`  |
-| **Combined Docs** | `http://localhost:8080/docs` |
 
-Each service exposes its own Swagger UI under `/docs`. The `docs` service
-aggregates all OpenAPI definitions so you can browse every endpoint on a single
-page at `http://localhost:8080/docs`.
+Each service exposes its own Swagger UI under `/docs` for interactive API
+testing. Replace `/docs` with other paths as appropriate for your implementation.
 
 ### Troubleshooting 502 Errors
 
