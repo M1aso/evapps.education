@@ -28,3 +28,4 @@ WebSocket connections should use the path `/ws/chats/:chatId`.
 ## API Documentation
 
 When running in development you can view Swagger UI at `http://localhost:3000/docs`.
+When using Docker Compose and the Nginx gateway open `http://localhost:8080/chat/docs`.
