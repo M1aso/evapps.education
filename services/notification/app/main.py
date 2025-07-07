@@ -8,7 +8,14 @@ from typing import List
 from .database import get_session, Base, engine
 from . import crud, schemas, models
 
-app = FastAPI(title="Notification Service", root_path=os.getenv("ROOT_PATH", ""))
+ROOT_PATH = os.getenv("ROOT_PATH", "/notification")
+app = FastAPI(
+    title="Notification Service",
+    root_path=ROOT_PATH,
+    docs_url=f"{ROOT_PATH}/docs" if ROOT_PATH else "/docs",
+    redoc_url=f"{ROOT_PATH}/redoc" if ROOT_PATH else "/redoc",
+    openapi_url=f"{ROOT_PATH}/openapi.json" if ROOT_PATH else "/openapi.json",
+)
 
 app.add_middleware(
     CORSMiddleware,

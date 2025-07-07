@@ -10,7 +10,14 @@ from . import models, schemas, crud
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Profile Service", root_path=os.getenv("ROOT_PATH", ""))
+ROOT_PATH = os.getenv("ROOT_PATH", "/profile")
+app = FastAPI(
+    title="Profile Service",
+    root_path=ROOT_PATH,
+    docs_url=f"{ROOT_PATH}/docs" if ROOT_PATH else "/docs",
+    redoc_url=f"{ROOT_PATH}/redoc" if ROOT_PATH else "/redoc",
+    openapi_url=f"{ROOT_PATH}/openapi.json" if ROOT_PATH else "/openapi.json",
+)
 
 
 def get_db():

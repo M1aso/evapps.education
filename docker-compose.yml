@@ -29,8 +29,6 @@ services:
   auth:
     build: ./services/auth
     env_file: .env
-    environment:
-      ROOT_PATH: /auth
     depends_on:
       - postgres
     ports:
@@ -39,8 +37,6 @@ services:
   profile:
     build: ./services/profile
     env_file: .env
-    environment:
-      ROOT_PATH: /profile
     depends_on:
       - postgres
     ports:
@@ -66,8 +62,6 @@ services:
   notification:
     build: ./services/notification
     env_file: .env
-    environment:
-      ROOT_PATH: /notification
     depends_on:
       - postgres
       - redis
@@ -78,8 +72,6 @@ services:
   analytics:
     build: ./services/analytics
     env_file: .env
-    environment:
-      ROOT_PATH: /analytics
     depends_on:
       - postgres
       - rabbitmq
