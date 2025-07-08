@@ -6,12 +6,20 @@ const protectedPaths = ['/profile', '/courses', '/chat', '/notification', '/anal
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req })
   const { pathname } = req.nextUrl
-  if (protectedPaths.some((path) => pathname.startsWith(path)) && !token) {
-    return NextResponse.redirect(new URL('/auth', req.url))
+  const [, locale, ...rest] = pathname.split('/')
+  const path = '/' + rest.join('/')
+  if (protectedPaths.some((p) => path.startsWith(p)) && !token) {
+    return NextResponse.redirect(new URL(`/${locale}/auth`, req.url))
   }
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/courses/:path*', '/chat/:path*', '/notification/:path*', '/analytics/:path*'],
+  matcher: [
+    '/:locale/profile/:path*',
+    '/:locale/courses/:path*',
+    '/:locale/chat/:path*',
+    '/:locale/notification/:path*',
+    '/:locale/analytics/:path*',
+  ],
 }
