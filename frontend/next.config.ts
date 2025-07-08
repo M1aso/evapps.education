@@ -1,11 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Internationalization configuration
-  i18n: {
-    locales: ["en", "ru"],
-    defaultLocale: "en",
-  },
+  // Add custom Next.js configuration here if needed
 };
 
 export default nextConfig;
