@@ -1,39 +1,30 @@
 # Frontend
 
-This directory contains the web application for the learning platform. It is currently a placeholder but follows a typical Node.js/React layout.
+This is the Next.js web application for the education platform.
 
 ## Getting Started
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-2. **Create environment file**
-   Copy `.env.example` to `.env.local` and update the variables:
-   ```bash
-   cp .env.example .env.local
-   ```
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-   The app will be available at `http://localhost:3000` by default.
+1. Copy the environment variables and update them if needed:
 
-## Project Structure
-
-```
-frontend/
-├── components/    # Reusable React components
-├── pages/         # Application pages/routes
-├── public/        # Static assets
-└── tests/         # Unit and integration tests
+```bash
+cp env.example .env.local
 ```
 
-## Key Commands
+2. Install dependencies and run the development server:
 
-| Command           | Description                   |
-|------------------ |------------------------------ |
-| `npm run lint`    | Run ESLint to check code style |
-| `npm test`        | Execute test suite            |
-| `npm run build`   | Create a production build     |
+```bash
+npm install
+npm run dev
+```
 
+The app will be available at <http://localhost:3000>.
+
+## Running with the Backend
+
+Start the backend using Docker Compose from the repository root:
+
+```bash
+docker compose up
+```
+
+Then in this `frontend` folder run `npm install` followed by `npm run dev`.
