@@ -4,3 +4,6 @@ __pycache__/
 venv/
 reports/
 .env
+
+node_modules/
+*.db
